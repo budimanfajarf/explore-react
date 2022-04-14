@@ -2,6 +2,7 @@ import 'App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
 // import BuiltInHeader from 'components/BuiltInHeader';
+import Alert from 'components/Alert';
 
 function App() {
   const [error, setError] = useState(null);
@@ -35,11 +36,11 @@ function App() {
 
       <main className="App-main">
         {error ? (
-          <div>Error: {error.message}</div>
+          <Alert message={error.message} type="danger" />
         ) : !isLoaded ? (
-          <div>Loading...</div>
+          <Alert message="Loading..." />
         ) : items.length === 0 ? (
-          <div>No items found.</div>
+          <Alert message="No items found." type="warning" />
         ) : (
           <div>
             {items}
