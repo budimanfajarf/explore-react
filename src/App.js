@@ -13,7 +13,14 @@ function App() {
   // this useEffect will run once
   // similar to componentDidMount()
   useEffect(() => {
-    fetch("https://api.example.com/items")
+    const API_URL = process.env.REACT_APP_API_URL;
+
+    if (!API_URL) {
+      setError(new Error('API URL not defined'));
+      return;
+    }
+
+    fetch(`${API_URL}/themes`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -40,7 +47,7 @@ function App() {
         ) : !isLoaded ? (
           <Alert message="Loading..." />
         ) : items.length === 0 ? (
-          <Alert message="No items found." type="warning" />
+          <Alert message="No items found" type="warning" />
         ) : (
           <div>
             {items}
