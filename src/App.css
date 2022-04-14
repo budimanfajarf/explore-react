@@ -49,3 +49,29 @@
 .alert--warning {
   color: #fb923c;
 }
+
+.table {
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.table,
+.table__th,
+.table__td {
+  border-bottom: 1px solid #94a3b8;
+}
+
+.table__td,
+.table__th {
+  padding: 10px 8px;
+}
+
+.table__img {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+}
+
+.text-center {
+  text-align: center;
+}

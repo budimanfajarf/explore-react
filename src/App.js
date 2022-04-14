@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 // import BuiltInHeader from 'components/BuiltInHeader';
 import Alert from 'components/Alert';
+import ProductTable from 'components/ProductTable';
 
 function App() {
   const [error, setError] = useState(null);
@@ -24,7 +25,8 @@ function App() {
       .then(res => res.json())
       .then(
         (result) => {
-          setItems(result);
+          console.log('result', result);
+          setItems(result.data);
           setIsLoaded(true);
         },
         // Note: it's important to handle errors here
@@ -49,9 +51,8 @@ function App() {
         ) : items.length === 0 ? (
           <Alert message="No items found" type="warning" />
         ) : (
-          <div>
-            {items}
-          </div>
+          // <div>{JSON.stringify(items)}</div>
+          <ProductTable products={items} />
         )}
       </main>
     </div>
