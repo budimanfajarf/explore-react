@@ -1,5 +1,5 @@
-import './App.css';
-import BuiltInHeader from './components/BuiltInHeader';
+import 'App.css';
+import BuiltInHeader from 'components/BuiltInHeader';
 
 function App() {
   return (
