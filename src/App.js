@@ -1,10 +1,13 @@
 import 'App.css';
-import BuiltInHeader from 'components/BuiltInHeader';
+// import BuiltInHeader from 'components/BuiltInHeader';
 
 function App() {
   return (
     <div className="App">
-      <BuiltInHeader />
+      {/* <BuiltInHeader /> */}
+      <main className="App-main">
+        It's blank
+      </main>
     </div>
   );
 }
