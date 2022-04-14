@@ -1,9 +1,12 @@
+import { joinArrayOfObject } from 'libs/helpers';
 import Image from "./Image";
 
 const ProductRow = ({ product }) => {
   const {
     image_url,
     name,
+    categories,
+    colors,
   } = product;
 
   return (
@@ -16,6 +19,8 @@ const ProductRow = ({ product }) => {
         />
       </td>
       <td className='table__td'>{name}</td>
+      <td className='table__td'>{joinArrayOfObject(categories, 'name') || '—'}</td>
+      <td className='table__td'>{joinArrayOfObject(colors, 'name') || '—'}</td>
     </tr>
   );
 }

@@ -63,7 +63,13 @@
 
 .table__td,
 .table__th {
-  padding: 10px 8px;
+  padding: 10px 15px;
+}
+
+.table__th {
+  font-size: 80%;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 .table__img {
