@@ -10,6 +10,8 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
+  let mounted = true;
+
   // Note: the empty deps array [] means
   // this useEffect will run once
   // similar to componentDidMount()
@@ -18,6 +20,10 @@ function App() {
 
     if (!API_URL) {
       setError(new Error('API URL not defined'));
+      return;
+    }
+
+    if(!mounted) {
       return;
     }
 
@@ -37,6 +43,9 @@ function App() {
           setIsLoaded(true);
         }
       );
+
+    // eslint-disable-next-line
+    mounted = false;
   }, []);
 
   return (
