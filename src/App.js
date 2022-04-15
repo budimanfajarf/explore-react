@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import Alert from 'components/Alert';
 import ProductTable from 'components/ProductTable';
 import SearchInput from 'components/SearchInput';
+import SelectOptions from 'components/SelectOptions';
 
 function App() {
   const [error, setError] = useState(null);
@@ -87,13 +88,16 @@ function App() {
 
           <br />
 
-          <select
+          <SelectOptions
+            options={[
+              {label: 'All Color', value: ''},
+              {label: 'Red', value: 'red'},
+              {label: 'Black', value: 'black'},
+              {label: 'Gold', value: 'gold'},
+            ]}
             value={selectedColor}
             onChange={(e) => handleSelectedColorChange(e.target.value)}
-          >
-            <option value="">All Color</option>
-            <option value="red">Red</option>
-          </select>
+          />
         </aside>
 
         <main className="App-main">
