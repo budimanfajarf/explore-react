@@ -9,6 +9,7 @@ function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   let mounted = true;
 
@@ -27,7 +28,17 @@ function App() {
       return;
     }
 
-    fetch(`${API_URL}/themes`)
+    const params = {};
+
+    if (searchKeyword) {
+      params.search = searchKeyword;
+    }
+
+    const apiParams = (new URLSearchParams(params)).toString();
+
+    setIsLoaded(false);
+
+    fetch(`${API_URL}/themes?${apiParams}`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -46,24 +57,40 @@ function App() {
 
     // eslint-disable-next-line
     mounted = false;
-  }, []);
+  // }, []); // the empty deps array []
+  }, [searchKeyword]);
+
+  const handleSearchKeywordChange = (searchKeyword) => {
+    setSearchKeyword(searchKeyword);
+  };
 
   return (
     <div className="App">
       {/* <BuiltInHeader /> */}
 
-      <main className="App-main">
-        {error ? (
-          <Alert message={error.message} type="danger" />
-        ) : !isLoaded ? (
-          <Alert message="Loading..." />
-        ) : items.length === 0 ? (
-          <Alert message="No items found" type="warning" />
-        ) : (
-          // <div>{JSON.stringify(items)}</div>
-          <ProductTable products={items} />
-        )}
-      </main>
+      <div className="App-base">
+        <aside className='App-aside'>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchKeyword}
+            onChange={(e) => handleSearchKeywordChange(e.target.value)}
+          />
+        </aside>
+
+        <main className="App-main">
+          {error ? (
+            <Alert message={error.message} type="danger" />
+          ) : !isLoaded ? (
+            <Alert message="Loading..." />
+          ) : items.length === 0 ? (
+            <Alert message="No items found" type="warning" />
+          ) : (
+            // <div>{JSON.stringify(items)}</div>
+            <ProductTable products={items} />
+          )}
+        </main>
+      </div>
     </div>
   );
 }
