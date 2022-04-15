@@ -4,13 +4,14 @@ import { useEffect } from 'react';
 // import BuiltInHeader from 'components/BuiltInHeader';
 import Alert from 'components/Alert';
 import ProductTable from 'components/ProductTable';
+import SearchInput from 'components/SearchInput';
 
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedColor, setSelectedColor] = useState('');
 
   let mounted = true;
 
@@ -79,9 +80,7 @@ function App() {
 
       <div className="App-base">
         <aside className='App-aside text-left'>
-          <input
-            type="text"
-            placeholder="Search..."
+          <SearchInput
             value={searchKeyword}
             onChange={(e) => handleSearchKeywordChange(e.target.value)}
           />
