@@ -71,8 +71,8 @@ function App() {
     setSearchKeyword(searchKeyword);
   };
 
-  const handleSelectedColorChange = (selectedColor) => {
-    setSelectedColor(selectedColor);
+  const handleSelectedColorChange = (e) => {
+    setSelectedColor(e.target.value);
   };
 
   return (
@@ -96,7 +96,7 @@ function App() {
               {label: 'Gold', value: 'gold'},
             ]}
             value={selectedColor}
-            onChange={(e) => handleSelectedColorChange(e.target.value)}
+            onChange={handleSelectedColorChange}
           />
         </aside>
 
