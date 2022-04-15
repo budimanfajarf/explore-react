@@ -5,7 +5,7 @@ const SelectOptions = React.forwardRef(({
   ...props
 }, ref) => {
   options = options.map((opt) => (
-    <option value={opt.value}>
+    <option key={opt.value} value={opt.value}>
       {opt.label}
     </option>
   ));
