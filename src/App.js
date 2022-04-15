@@ -4,11 +4,17 @@ import { useEffect } from 'react';
 // import BuiltInHeader from 'components/BuiltInHeader';
 import Alert from 'components/Alert';
 import ProductTable from 'components/ProductTable';
+import SearchInput from 'components/SearchInput';
+import SelectOptions from 'components/SelectOptions';
 
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [selectedColor, setSelectedColor] = useState('');
+
+  let mounted = true;
 
   // Note: the empty deps array [] means
   // this useEffect will run once
@@ -21,7 +27,25 @@ function App() {
       return;
     }
 
-    fetch(`${API_URL}/themes`)
+    if(!mounted) {
+      return;
+    }
+
+    const params = {};
+
+    if (searchKeyword) {
+      params.search = searchKeyword;
+    }
+
+    if (selectedColor) {
+      params.color = selectedColor;
+    }
+
+    const apiParams = (new URLSearchParams(params)).toString();
+
+    setIsLoaded(false);
+
+    fetch(`${API_URL}/themes?${apiParams}`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -37,24 +61,58 @@ function App() {
           setIsLoaded(true);
         }
       );
-  }, []);
+
+    // eslint-disable-next-line
+    mounted = false;
+  // }, []); // the empty deps array []
+  }, [searchKeyword, selectedColor]);
+
+  const handleSearchKeywordChange = (searchKeyword) => {
+    setSearchKeyword(searchKeyword);
+  };
+
+  const handleSelectedColorChange = (e) => {
+    setSelectedColor(e.target.value);
+  };
 
   return (
     <div className="App">
       {/* <BuiltInHeader /> */}
 
-      <main className="App-main">
-        {error ? (
-          <Alert message={error.message} type="danger" />
-        ) : !isLoaded ? (
-          <Alert message="Loading..." />
-        ) : items.length === 0 ? (
-          <Alert message="No items found" type="warning" />
-        ) : (
-          // <div>{JSON.stringify(items)}</div>
-          <ProductTable products={items} />
-        )}
-      </main>
+      <div className="App-base">
+        <aside className='App-aside text-left'>
+          <SearchInput
+            value={searchKeyword}
+            onChange={(e) => handleSearchKeywordChange(e.target.value)}
+          />
+
+          <br />
+
+          <SelectOptions
+            options={[
+              {label: 'All Color', value: ''},
+              {label: 'Red', value: 'red'},
+              {label: 'Black', value: 'black'},
+              {label: 'Gold', value: 'gold'},
+            ]}
+            value={selectedColor}
+            onChange={handleSelectedColorChange}
+          />
+        </aside>
+
+        <main className="App-main">
+          {error ? (
+            <Alert message={error.message} type="danger" />
+          ) : !isLoaded ? (
+            <Alert message="Loading..." />
+          ) : items.length === 0 ? (
+            <Alert message="No items found" type="warning" />
+          ) : (
+            // <div>{JSON.stringify(items)}</div>
+            <ProductTable products={items} />
+          )}
+        </main>
+      </div>
     </div>
   );
 }
