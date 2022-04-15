@@ -10,6 +10,7 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [selectedColor, setSelectedColor] = useState(null);
 
   let mounted = true;
 
@@ -32,6 +33,10 @@ function App() {
 
     if (searchKeyword) {
       params.search = searchKeyword;
+    }
+
+    if (selectedColor) {
+      params.color = selectedColor;
     }
 
     const apiParams = (new URLSearchParams(params)).toString();
@@ -58,10 +63,14 @@ function App() {
     // eslint-disable-next-line
     mounted = false;
   // }, []); // the empty deps array []
-  }, [searchKeyword]);
+  }, [searchKeyword, selectedColor]);
 
   const handleSearchKeywordChange = (searchKeyword) => {
     setSearchKeyword(searchKeyword);
+  };
+
+  const handleSelectedColorChange = (selectedColor) => {
+    setSelectedColor(selectedColor);
   };
 
   return (
@@ -69,13 +78,23 @@ function App() {
       {/* <BuiltInHeader /> */}
 
       <div className="App-base">
-        <aside className='App-aside'>
+        <aside className='App-aside text-left'>
           <input
             type="text"
             placeholder="Search..."
             value={searchKeyword}
             onChange={(e) => handleSearchKeywordChange(e.target.value)}
           />
+
+          <br />
+
+          <select
+            value={selectedColor}
+            onChange={(e) => handleSelectedColorChange(e.target.value)}
+          >
+            <option value="">All Color</option>
+            <option value="red">Red</option>
+          </select>
         </aside>
 
         <main className="App-main">
