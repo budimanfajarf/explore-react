@@ -27,7 +27,7 @@ function App() {
       return;
     }
 
-    if(!mounted) {
+    if (!mounted) {
       return;
     }
 
@@ -64,7 +64,7 @@ function App() {
 
     // eslint-disable-next-line
     mounted = false;
-  // }, []); // the empty deps array []
+    // }, []); // the empty deps array []
   }, [searchKeyword, selectedColor]);
 
   const handleSearchKeywordChange = (searchKeyword) => {
@@ -90,10 +90,10 @@ function App() {
 
           <SelectOptions
             options={[
-              {label: 'All Color', value: ''},
-              {label: 'Red', value: 'red'},
-              {label: 'Black', value: 'black'},
-              {label: 'Gold', value: 'gold'},
+              { label: 'All Color', value: '' },
+              { label: 'Red', value: 'red' },
+              { label: 'Black', value: 'black' },
+              { label: 'Gold', value: 'gold' },
             ]}
             value={selectedColor}
             onChange={handleSelectedColorChange}
